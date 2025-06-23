@@ -1,12 +1,13 @@
 
-import React, { useEffect, useRef } from 'react';
-import { X, Instagram, Twitter, Music, Play, Pause } from 'lucide-react';
+import React from 'react';
+import { X, Instagram, Heart } from 'lucide-react';
 
 interface ProfileModalProps {
   person: {
     id: string;
     name: string;
     image: string;
+    modalImage?: string;
     description: string;
     color: string;
     gradient: string;
@@ -21,41 +22,13 @@ interface ProfileModalProps {
 }
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ person, isOpen, onClose }) => {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = React.useState(false);
-
-  useEffect(() => {
-    if (isOpen && person?.song && audioRef.current) {
-      audioRef.current.volume = 0.3;
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(console.error);
-    } else if (!isOpen && audioRef.current) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    }
-  }, [isOpen, person]);
-
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        audioRef.current.play().then(() => {
-          setIsPlaying(true);
-        }).catch(console.error);
-      }
-    }
-  };
-
   if (!isOpen || !person) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
         onClick={onClose}
       />
       
@@ -71,9 +44,9 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ person, isOpen, onClose }) 
         
         {/* Profile image */}
         <div className="flex justify-center mb-6">
-          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg">
+          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
             <img
-              src={person.image}
+              src={person.modalImage || person.image}
               alt={person.name}
               className="w-full h-full object-cover"
             />
@@ -81,55 +54,31 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ person, isOpen, onClose }) 
         </div>
         
         {/* Name */}
-        <h2 className="text-2xl font-poppins font-semibold text-center text-gray-800 mb-4">
+        <h2 className="text-2xl font-mono font-semibold text-center text-gray-800 mb-4">
           {person.name}
         </h2>
         
         {/* Description */}
-        <p className="text-gray-600 font-poppins text-center mb-6 leading-relaxed">
+        <p className="text-gray-600 font-mono text-center mb-6 leading-relaxed">
           {person.description}
         </p>
         
-        {/* Social media icons */}
-        <div className="flex justify-center space-x-4 mb-6">
-          {person.social.instagram && (
+        {/* Cute Instagram link */}
+        {person.social.instagram && (
+          <div className="flex justify-center">
             <a
               href={person.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 text-white hover:scale-110 transition-transform shadow-lg"
+              className="flex items-center space-x-2 px-6 py-3 rounded-full bg-gradient-to-r from-pink-400 via-purple-400 to-pink-500 text-white hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl group"
             >
-              <Instagram size={20} />
-            </a>
-          )}
-          {person.social.twitter && (
-            <a
-              href={person.social.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-blue-500 text-white hover:scale-110 transition-transform shadow-lg"
-            >
-              <Twitter size={20} />
-            </a>
-          )}
-        </div>
-        
-        {/* Music control */}
-        {person.song && (
-          <div className="flex justify-center">
-            <button
-              onClick={toggleMusic}
-              className="flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:scale-105 transition-transform shadow-lg"
-            >
-              {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-              <Music size={16} />
-              <span className="text-sm font-medium">
-                {isPlaying ? 'Pause' : 'Play'} Music
+              <Heart size={16} className="group-hover:animate-pulse" />
+              <Instagram size={18} />
+              <span className="text-sm font-mono font-medium">
+                Follow me! ✨
               </span>
-            </button>
-            <audio ref={audioRef} loop>
-              <source src={person.song} type="audio/mpeg" />
-            </audio>
+              <Heart size={16} className="group-hover:animate-pulse" />
+            </a>
           </div>
         )}
       </div>

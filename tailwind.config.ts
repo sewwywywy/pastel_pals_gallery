@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,6 +20,8 @@ export default {
 		extend: {
 			fontFamily: {
 				'poppins': ['Poppins', 'sans-serif'],
+				'helvetica': ['Helvetica', 'Arial', 'sans-serif'],
+				'mono': ['Monaco', 'Menlo', 'Ubuntu Mono', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -66,7 +67,6 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom pastel colors
 				blush: {
 					50: '#fef7f7',
 					100: '#fdedef',

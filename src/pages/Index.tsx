@@ -1,24 +1,54 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ProfileCard from '../components/ProfileCard';
 import ProfileModal from '../components/ProfileModal';
 import BackgroundGradient from '../components/BackgroundGradient';
 import ParticleBackground from '../components/ParticleBackground';
-import FloatingDecoration from '../components/FloatingDecoration';
 
 const Index = () => {
   const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
+  const [showCards, setShowCards] = useState(false);
+  const [typewriterText, setTypewriterText] = useState('');
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const fullText = "Welcome to our world...";
+
+  useEffect(() => {
+    // Auto-play background music
+    if (audioRef.current) {
+      audioRef.current.volume = 0.3;
+      audioRef.current.play().catch(console.error);
+    }
+
+    // Typewriter effect
+    let i = 0;
+    const typewriterTimer = setInterval(() => {
+      if (i < fullText.length) {
+        setTypewriterText(fullText.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(typewriterTimer);
+        setTimeout(() => {
+          setTypewriterText('');
+          setShowCards(true);
+        }, 1000);
+      }
+    }, 100);
+
+    return () => clearInterval(typewriterTimer);
+  }, []);
 
   const people = [
     {
       id: 'silvano',
       name: 'Silvano',
-      image: 'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop&crop=face',
-      description: 'A dreamy soul with a passion for nature and fresh perspectives. Always finding beauty in the simple moments of life.',
+      image: '/lovable-uploads/cb5355a0-d85e-4a88-9610-27decac6d65b.png',
+      modalImage: '/lovable-uploads/2f538077-06eb-40c6-8c1e-e44ea067c226.png',
+      description: 'Hiiii, It\'s me lols',
       color: '#10b981',
       gradient: 'green',
       social: {
-        instagram: '#',
+        instagram: 'https://www.instagram.com/silvano_bol/',
         twitter: '#',
       },
       song: '#'
@@ -26,12 +56,13 @@ const Index = () => {
     {
       id: 'sienna',
       name: 'Sienna',
-      image: 'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=400&fit=crop&crop=face',
-      description: 'Bubbly and bright, bringing joy wherever she goes. Her infectious laughter lights up every room.',
+      image: '/lovable-uploads/122ae658-b10a-4581-a39d-ff57e5faee64.png',
+      modalImage: '/lovable-uploads/00bd5cf5-081a-4047-ae93-49a0dcdbdf0f.png',
+      description: 'The kindest person you\'ll ever meet. Funny and pretty combo, and lights up every room she steps into.',
       color: '#f472b6',
       gradient: 'pink',
       social: {
-        instagram: '#',
+        instagram: 'https://www.instagram.com/tangsienna/',
         twitter: '#',
       },
       song: '#'
@@ -39,12 +70,13 @@ const Index = () => {
     {
       id: 'monicah',
       name: 'Monicah',
-      image: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop&crop=face',
-      description: 'Calm and collected with a bright spirit. She brings peace and wisdom to every conversation.',
+      image: '/lovable-uploads/8e92d7ec-0255-4858-9862-8b6d16b32890.png',
+      modalImage: '/lovable-uploads/24ceb71d-3f66-4f74-a3bc-0bbf8c590ab9.png',
+      description: 'Fierce and empathetic. A pillar you can always turn to, always there when you need her, unless her phone is confiscated.',
       color: '#60a5fa',
       gradient: 'blue',
       social: {
-        instagram: '#',
+        instagram: 'https://www.instagram.com/monicahanyegah/',
         twitter: '#',
       },
       song: '#'
@@ -52,12 +84,13 @@ const Index = () => {
     {
       id: 'lenore',
       name: 'Lenore',
-      image: 'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop&crop=face',
-      description: 'Bold and stylish with a contemporary edge. She fearlessly expresses her unique vision of the world.',
+      image: '/lovable-uploads/f8fa4e22-9fd2-4887-a970-aa72bd9058ff.png',
+      modalImage: '/lovable-uploads/4a44c677-c730-4ba5-8863-412985e9a0b2.png',
+      description: 'Smart and pretty asf. Super witty, and balances smarts and stupidity while being effortlessly hilarious. Lowk deppresed.',
       color: '#ef4444',
       gradient: 'red',
       social: {
-        instagram: '#',
+        instagram: 'https://www.instagram.com/lenorewilsonn/',
         twitter: '#',
       },
       song: '#'
@@ -65,12 +98,13 @@ const Index = () => {
     {
       id: 'alyssa',
       name: 'Alyssa',
-      image: 'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=400&fit=crop&crop=face',
-      description: 'Soft and gentle like a blooming rose. Her kind heart and nurturing spirit touch everyone she meets.',
+      image: '/lovable-uploads/1d3eda8f-3be2-4aae-ba6f-80afeca9aa99.png',
+      modalImage: '/lovable-uploads/b81bdee5-1790-435e-b789-270e364726c8.png',
+      description: 'Kawai shawty. She don\'t play about two things, her GPA, and her friends. Super silly and down to earth.',
       color: '#fda4af',
       gradient: 'blush',
       social: {
-        instagram: '#',
+        instagram: 'https://www.instagram.com/alyssa._nguyen/',
         twitter: '#',
       },
       song: '#'
@@ -80,9 +114,9 @@ const Index = () => {
   const selectedPersonData = selectedPerson ? people.find(p => p.id === selectedPerson) : null;
 
   return (
-    <div className="min-h-screen relative overflow-hidden font-poppins">
-      {/* Default background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-blush-50 via-white to-lavender-50 -z-20" />
+    <div className="min-h-screen relative overflow-hidden font-helvetica">
+      {/* Dark blue gradient background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 -z-20" />
       
       {/* Dynamic backgrounds */}
       {people.map((person) => (
@@ -96,41 +130,51 @@ const Index = () => {
       {/* Particle background */}
       <ParticleBackground />
       
-      {/* Floating decorations */}
-      <FloatingDecoration 
-        type="heart" 
-        className="top-20 left-10 text-pink-300" 
-        delay={1000}
-      />
-      <FloatingDecoration 
-        type="star" 
-        className="top-32 right-16 text-yellow-300" 
-        delay={2000}
-      />
-      <FloatingDecoration 
-        type="heart" 
-        className="bottom-32 right-10 text-purple-300" 
-        delay={3000}
-      />
-      <FloatingDecoration 
-        type="star" 
-        className="bottom-48 left-12 text-blue-300" 
-        delay={4000}
-      />
+      {/* Background audio */}
+      <audio ref={audioRef} loop>
+        <source src="https://files.catbox.moe/zo2b7t.wav" type="audio/wav" />
+      </audio>
 
       {/* Main content */}
       <div className="container mx-auto px-6 py-16 relative z-10">
+        {/* Typewriter text */}
+        {!showCards && (
+          <div className="flex items-center justify-center min-h-screen">
+            <h1 className="text-4xl md:text-6xl font-mono text-white">
+              {typewriterText}
+              <span className="animate-pulse">|</span>
+            </h1>
+          </div>
+        )}
+
         {/* Profiles grid */}
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 max-w-4xl mx-auto min-h-screen">
-          {people.map((person, index) => (
-            <ProfileCard
-              key={person.id}
-              person={person}
-              onClick={() => setSelectedPerson(person.id)}
-              delay={index * 200}
-            />
-          ))}
-        </div>
+        {showCards && (
+          <div className="min-h-screen flex flex-col justify-center items-center">
+            {/* Top row - 2 circles */}
+            <div className="flex justify-center items-center gap-12 mb-8">
+              {people.slice(0, 2).map((person, index) => (
+                <ProfileCard
+                  key={person.id}
+                  person={person}
+                  onClick={() => setSelectedPerson(person.id)}
+                  delay={index * 300}
+                />
+              ))}
+            </div>
+            
+            {/* Bottom row - 3 circles */}
+            <div className="flex justify-center items-center gap-12">
+              {people.slice(2, 5).map((person, index) => (
+                <ProfileCard
+                  key={person.id}
+                  person={person}
+                  onClick={() => setSelectedPerson(person.id)}
+                  delay={(index + 2) * 300}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Profile Modal */}

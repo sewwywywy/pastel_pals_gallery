@@ -1,42 +1,43 @@
 
 import React from 'react';
-import { Heart, Sparkles } from 'lucide-react';
 
 const ParticleBackground: React.FC = () => {
-  const particles = Array.from({ length: 12 }, (_, i) => ({
+  const particles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
-    type: i % 3 === 0 ? 'heart' : 'sparkle',
-    delay: i * 800,
-    duration: 4000 + (i * 200),
+    delay: i * 400,
+    duration: 6000 + (i * 300),
   }));
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden -z-5">
       {particles.map((particle) => {
-        const Icon = particle.type === 'heart' ? Heart : Sparkles;
-        const colors = ['text-pink-300', 'text-yellow-300', 'text-purple-300', 'text-blue-300'];
+        const sizes = [8, 12, 16, 20];
+        const colors = ['rgba(255, 255, 255, 0.1)', 'rgba(168, 85, 247, 0.2)', 'rgba(59, 130, 246, 0.2)', 'rgba(236, 72, 153, 0.2)'];
         const positions = [
-          'top-1/4 left-1/4',
-          'top-1/3 right-1/4',
-          'top-2/3 left-1/3',
-          'bottom-1/4 right-1/3',
-          'top-1/2 left-1/6',
-          'bottom-1/3 left-2/3',
+          `${Math.random() * 100}%`,
+          `${Math.random() * 100}%`
         ];
         
         return (
           <div
             key={particle.id}
-            className={`absolute ${positions[particle.id % positions.length]} opacity-30`}
+            className="absolute opacity-60"
             style={{
+              left: positions[0],
+              top: positions[1],
               animation: `float ${particle.duration}ms ease-in-out infinite`,
               animationDelay: `${particle.delay}ms`,
             }}
           >
-            <Icon 
-              size={16 + (particle.id % 3) * 4} 
-              className={`${colors[particle.id % colors.length]} animate-twinkle`}
-              style={{ animationDelay: `${particle.delay + 500}ms` }}
+            <div
+              className="rounded-full"
+              style={{
+                width: `${sizes[particle.id % sizes.length]}px`,
+                height: `${sizes[particle.id % sizes.length]}px`,
+                backgroundColor: colors[particle.id % colors.length],
+                animation: `twinkle 3s ease-in-out infinite`,
+                animationDelay: `${particle.delay + 1000}ms`,
+              }}
             />
           </div>
         );
