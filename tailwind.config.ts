@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'poppins': ['Poppins', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,6 +65,31 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom pastel colors
+				blush: {
+					50: '#fef7f7',
+					100: '#fdedef',
+					200: '#fad1d4',
+					300: '#f5a6ab',
+					400: '#ed6b73',
+					500: '#e23d47',
+				},
+				lavender: {
+					50: '#f8f7ff',
+					100: '#f1efff',
+					200: '#e6e2ff',
+					300: '#d1cbff',
+					400: '#b4a7ff',
+					500: '#9580ff',
+				},
+				mint: {
+					50: '#f0fdf8',
+					100: '#dcfce8',
+					200: '#bbf7d1',
+					300: '#86efac',
+					400: '#4ade80',
+					500: '#22c55e',
 				}
 			},
 			borderRadius: {
@@ -84,11 +113,51 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'gentle-bounce': {
+					'0%, 100%': {
+						transform: 'translateY(0) scale(1)',
+					},
+					'50%': {
+						transform: 'translateY(-8px) scale(1.05)',
+					},
+				},
+				'fade-in-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(20px)',
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)',
+					},
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0px)',
+					},
+					'50%': {
+						transform: 'translateY(-10px)',
+					},
+				},
+				'twinkle': {
+					'0%, 100%': {
+						opacity: '0.3',
+						transform: 'scale(0.8)',
+					},
+					'50%': {
+						opacity: '1',
+						transform: 'scale(1.2)',
+					},
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'gentle-bounce': 'gentle-bounce 0.6s ease-in-out',
+				'fade-in-up': 'fade-in-up 0.8s ease-out',
+				'float': 'float 3s ease-in-out infinite',
+				'twinkle': 'twinkle 2s ease-in-out infinite',
 			}
 		}
 	},
