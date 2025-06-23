@@ -120,21 +120,8 @@ const Index = () => {
 
       {/* Main content */}
       <div className="container mx-auto px-6 py-16 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-poppins font-light text-gray-700 mb-4">
-            Meet Our
-            <span className="block font-medium bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-              Amazing Team
-            </span>
-          </h1>
-          <p className="text-lg text-gray-500 font-light max-w-md mx-auto">
-            Click on any profile to learn more about our wonderful people
-          </p>
-        </div>
-
         {/* Profiles grid */}
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 max-w-4xl mx-auto">
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 max-w-4xl mx-auto min-h-screen">
           {people.map((person, index) => (
             <ProfileCard
               key={person.id}
@@ -143,15 +130,6 @@ const Index = () => {
               delay={index * 200}
             />
           ))}
-        </div>
-
-        {/* Bottom decorative section */}
-        <div className="text-center mt-20 animate-fade-in-up" style={{ animationDelay: '1200ms' }}>
-          <div className="flex justify-center items-center space-x-4 text-gray-400">
-            <div className="w-12 h-px bg-gradient-to-r from-transparent to-pink-200"></div>
-            <span className="text-sm font-poppins font-light">✨</span>
-            <div className="w-12 h-px bg-gradient-to-l from-transparent to-purple-200"></div>
-          </div>
         </div>
       </div>
 
