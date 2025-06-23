@@ -7,11 +7,7 @@ import ParticleBackground from '../components/ParticleBackground';
 
 const Index = () => {
   const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
-  const [showCards, setShowCards] = useState(false);
-  const [typewriterText, setTypewriterText] = useState('');
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  const fullText = "Welcome to our world...";
 
   useEffect(() => {
     // Auto-play background music
@@ -19,23 +15,6 @@ const Index = () => {
       audioRef.current.volume = 0.3;
       audioRef.current.play().catch(console.error);
     }
-
-    // Typewriter effect
-    let i = 0;
-    const typewriterTimer = setInterval(() => {
-      if (i < fullText.length) {
-        setTypewriterText(fullText.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typewriterTimer);
-        setTimeout(() => {
-          setTypewriterText('');
-          setShowCards(true);
-        }, 1000);
-      }
-    }, 100);
-
-    return () => clearInterval(typewriterTimer);
   }, []);
 
   const people = [
@@ -137,44 +116,31 @@ const Index = () => {
 
       {/* Main content */}
       <div className="container mx-auto px-6 py-16 relative z-10">
-        {/* Typewriter text */}
-        {!showCards && (
-          <div className="flex items-center justify-center min-h-screen">
-            <h1 className="text-4xl md:text-6xl font-mono text-white">
-              {typewriterText}
-              <span className="animate-pulse">|</span>
-            </h1>
+        <div className="min-h-screen flex flex-col justify-center items-center">
+          {/* Top row - 2 circles */}
+          <div className="flex justify-center items-center gap-8 mb-12">
+            {people.slice(0, 2).map((person, index) => (
+              <ProfileCard
+                key={person.id}
+                person={person}
+                onClick={() => setSelectedPerson(person.id)}
+                delay={index * 300}
+              />
+            ))}
           </div>
-        )}
-
-        {/* Profiles grid */}
-        {showCards && (
-          <div className="min-h-screen flex flex-col justify-center items-center">
-            {/* Top row - 2 circles */}
-            <div className="flex justify-center items-center gap-12 mb-8">
-              {people.slice(0, 2).map((person, index) => (
-                <ProfileCard
-                  key={person.id}
-                  person={person}
-                  onClick={() => setSelectedPerson(person.id)}
-                  delay={index * 300}
-                />
-              ))}
-            </div>
-            
-            {/* Bottom row - 3 circles */}
-            <div className="flex justify-center items-center gap-12">
-              {people.slice(2, 5).map((person, index) => (
-                <ProfileCard
-                  key={person.id}
-                  person={person}
-                  onClick={() => setSelectedPerson(person.id)}
-                  delay={(index + 2) * 300}
-                />
-              ))}
-            </div>
+          
+          {/* Bottom row - 3 circles */}
+          <div className="flex justify-center items-center gap-8">
+            {people.slice(2, 5).map((person, index) => (
+              <ProfileCard
+                key={person.id}
+                person={person}
+                onClick={() => setSelectedPerson(person.id)}
+                delay={(index + 2) * 300}
+              />
+            ))}
           </div>
-        )}
+        </div>
       </div>
 
       {/* Profile Modal */}

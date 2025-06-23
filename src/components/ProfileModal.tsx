@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { X, Instagram, Heart } from 'lucide-react';
+import { X, Instagram } from 'lucide-react';
 
 interface ProfileModalProps {
   person: {
@@ -63,21 +63,16 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ person, isOpen, onClose }) 
           {person.description}
         </p>
         
-        {/* Cute Instagram link */}
+        {/* Instagram link */}
         {person.social.instagram && (
           <div className="flex justify-center">
             <a
               href={person.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2 px-6 py-3 rounded-full bg-gradient-to-r from-pink-400 via-purple-400 to-pink-500 text-white hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl group"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-black hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              <Heart size={16} className="group-hover:animate-pulse" />
-              <Instagram size={18} />
-              <span className="text-sm font-mono font-medium">
-                Follow me! ✨
-              </span>
-              <Heart size={16} className="group-hover:animate-pulse" />
+              <Instagram size={24} className="text-white" />
             </a>
           </div>
         )}

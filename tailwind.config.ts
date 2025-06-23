@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -122,6 +123,14 @@ export default {
 						transform: 'translateY(-8px) scale(1.05)',
 					},
 				},
+				'gentle-float': {
+					'0%, 100%': {
+						transform: 'translateY(0px)',
+					},
+					'50%': {
+						transform: 'translateY(-6px)',
+					},
+				},
 				'fade-in-up': {
 					'0%': {
 						opacity: '0',
@@ -165,6 +174,7 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'gentle-bounce': 'gentle-bounce 0.6s ease-in-out',
+				'gentle-float': 'gentle-float 4s ease-in-out infinite',
 				'fade-in-up': 'fade-in-up 0.8s ease-out',
 				'scale-in': 'scale-in 0.3s ease-out',
 				'float': 'float 3s ease-in-out infinite',

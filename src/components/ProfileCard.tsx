@@ -15,13 +15,13 @@ interface ProfileCardProps {
 const ProfileCard: React.FC<ProfileCardProps> = ({ person, onClick, delay = 0 }) => {
   return (
     <div
-      className="relative group cursor-pointer animate-fade-in-up"
+      className="relative group cursor-pointer animate-fade-in-up animate-gentle-float"
       style={{ animationDelay: `${delay}ms` }}
       onClick={onClick}
     >
       {/* Profile circle */}
       <div className="relative">
-        <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-3 border-white shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl">
+        <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-white shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl">
           <img
             src={person.image}
             alt={person.name}
